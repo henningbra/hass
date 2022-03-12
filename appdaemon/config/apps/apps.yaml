@@ -1,0 +1,11 @@
+AveragePower:
+  module: power
+  class: AveragePowerConsumption
+  sensor: sensor.power_hjemme
+  ticks: 180
+  wait: 10
+  input_field: input_number.moving_average
+
+Tibber:
+  module: tibber
+  class: PriceManager

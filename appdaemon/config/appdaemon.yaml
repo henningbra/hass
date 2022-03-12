@@ -1,0 +1,16 @@
+appdaemon:
+  latitude: !env_var APP_DAEMON_LATITUDE
+  longitude: !env_var APP_DAEMON_LONGITUDE
+  elevation: !env_var APP_DAEMON_ELEVATION
+  time_zone: !env_var APP_DAEMON_TZ
+  missing_app_warnings: 1  # Suppress warnings of Non AD python classes
+  plugins:
+    HASS:
+      type: hass
+      ha_url: http://172.19.0.1:8123
+      token: !env_var APP_DAEMON_TOKEN
+http:
+    url: http://appdaemon:5050
+api:
+admin:
+

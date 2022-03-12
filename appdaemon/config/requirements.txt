@@ -1,0 +1,7 @@
+requests==2.26.0
+sgqlc==12.1
+pytz==2021.3
+
+# Testing
+pytest==6.2.5
+appdaemon-testing==0.1.4
