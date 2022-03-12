@@ -26,9 +26,6 @@ services:
     restart: unless-stopped
     ports:
       - "3306:3306/tcp"
-    #volumes:
-    #  - ./mariadb/config:/etc/mysql/conf.d
-    #  - ./mariadb/data:/var/lib/mysql
     environment:
       TZ: ${TZ}
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
@@ -45,10 +42,9 @@ services:
       - ./homeassistant/config:/config
       - /etc/localtime:/etc/localtime:ro
     restart: unless-stopped
-    network_mode: host  # Requirement of running HASS.
+    network_mode: host  # HASS Requirement
     depends_on:
       - mqtt
-      # - postgres
       - mariadb
     
   appdaemon:
@@ -56,12 +52,12 @@ services:
     image: acockburn/appdaemon:latest
     restart: unless-stopped
     environment:
-      APP_DAEMON_TOKEN: ${APP_DAEMON_TOKEN:-some_long_token}
-      APP_DAEMON_LONGITUDE: ${APP_DAEMON_LONGITUDE:-50}
-      APP_DAEMON_LATITUDE: ${APP_DAEMON_LATITUDE:-50}
-      APP_DAEMON_ELEVATION: ${APP_DAEMON_ELEVATION:-50}
-      APP_DAEMON_TZ: ${TZ:-CET}
-      TIBBER_TOKEN: ${TIBBER_TOKEN:-MY_SECRET_TOKEN}
+      APP_DAEMON_TOKEN: ${APP_DAEMON_TOKEN}
+      APP_DAEMON_LONGITUDE: ${APP_DAEMON_LONGITUDE}
+      APP_DAEMON_LATITUDE: ${APP_DAEMON_LATITUDE}
+      APP_DAEMON_ELEVATION: ${APP_DAEMON_ELEVATION}
+      APP_DAEMON_TZ: ${TZ}
+      TIBBER_TOKEN: ${TIBBER_TOKEN}
     ports:
       - 5050:5050
     volumes:
