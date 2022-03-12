@@ -31,6 +31,8 @@ wheels/
 *.manifest
 *.spec
 
+# IDE
+
 # Installer logs
 pip-log.txt
 pip-delete-this-directory.txt
@@ -46,7 +48,12 @@ coverage.xml
 *.cover
 .hypothesis/
 
-# Project
+# secrets
+.env
+
+# Homeassistant
+secrets.yaml
+home-assistant.log*
 .cloud
 .storage
 .HA_VERSION
