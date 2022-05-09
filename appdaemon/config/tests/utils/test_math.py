@@ -1,6 +1,6 @@
 
 import unittest
-from apps.core.math import MovingAverage
+from apps.utils.math import MovingAverage
 
 
 class TestMovingAverage(unittest.TestCase):
@@ -11,11 +11,12 @@ class TestMovingAverage(unittest.TestCase):
 
     def test_full_queue(self):
             for item in self.items:
-                result = self.ma.next(item)
-            assert result == 1
+                self.ma.next(item)
+            assert self.ma.average() == 1
 
     def test_overflow_queue(self):
         self.items.append(1)
         for item in self.items:
-            result = self.ma.next(item)
-        assert result == 1
+            self.ma.next(item)
+        assert self.ma.average() == 1
+

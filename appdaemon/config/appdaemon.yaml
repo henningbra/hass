@@ -7,7 +7,7 @@ appdaemon:
   plugins:
     HASS:
       type: hass
-      ha_url: http://172.19.0.1:8123
+      ha_url: http://192.168.50.10:8123
       token: !env_var APP_DAEMON_TOKEN
 http:
     url: http://appdaemon:5050

@@ -10,6 +10,30 @@ services:
 # add zwavejs2mqtt
 # https://zwave-js.github.io/zwavejs2mqtt/#/getting-started/quick-start?id=minimum-settings
 
+  certbot:
+    container_name: certbot
+    image: certbot/certbot:latest
+    volumes:
+      - ./certbot/www:/var/www/certbot:rw
+      - ./certbot/conf:/etc/letsencrypt:rw
+
+  nginx:
+    container_name: nginx
+    image: nginx:latest
+    ports:
+      - 80:80
+      - 443:443
+    restart: unless-stopped
+    environment:
+      NGINX_DOMAIN: ${NGINX_DOMAIN:?error}
+      NGINX_PROXY_URL: ${NGINX_PROXY_URL:?error}
+    volumes:
+      - ./nginx/templates:/etc/nginx/templates:ro
+      - ./certbot/www:/var/www/certbot:ro
+      - ./certbot/conf:/etc/nginx/ssl:ro
+    depends_on:
+      - certbot
+
   mqtt:
     container_name: mosquitto
     image: toke/mosquitto:latest
@@ -21,17 +45,19 @@ services:
       - ./mqtt/mosquitto.conf
 
   mariadb:
-    container_name: mariadb3
+    container_name: mariadb
     image: bianjp/mariadb-alpine:latest
     restart: unless-stopped
     ports:
       - "3306:3306/tcp"
+    volumes:
+      - database-data:/var/lib/mysql
     environment:
       TZ: ${TZ}
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      MYSQL_DATABASE: ${MYSQL_DATABASE}
-      MYSQL_USER: ${MYSQL_USER}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?error}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:?error}
+      MYSQL_USER: ${MYSQL_USER:?error}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:?error}
         
   hass:
     container_name: hass
@@ -46,18 +72,19 @@ services:
     depends_on:
       - mqtt
       - mariadb
+      - nginx
     
   appdaemon:
     container_name: appdaemon
     image: acockburn/appdaemon:latest
     restart: unless-stopped
     environment:
-      APP_DAEMON_TOKEN: ${APP_DAEMON_TOKEN}
-      APP_DAEMON_LONGITUDE: ${APP_DAEMON_LONGITUDE}
-      APP_DAEMON_LATITUDE: ${APP_DAEMON_LATITUDE}
-      APP_DAEMON_ELEVATION: ${APP_DAEMON_ELEVATION}
-      APP_DAEMON_TZ: ${TZ}
-      TIBBER_TOKEN: ${TIBBER_TOKEN}
+      APP_DAEMON_TOKEN: ${APP_DAEMON_TOKEN:?error}
+      APP_DAEMON_LONGITUDE: ${APP_DAEMON_LONGITUDE:?error}
+      APP_DAEMON_LATITUDE: ${APP_DAEMON_LATITUDE:?error}
+      APP_DAEMON_ELEVATION: ${APP_DAEMON_ELEVATION:?error}
+      APP_DAEMON_TZ: ${TZ:?error}
+      TIBBER_TOKEN: ${TIBBER_TOKEN:?error}
     ports:
       - 5050:5050
     volumes:

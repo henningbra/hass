@@ -1,7 +1,7 @@
 
 # Configure a default setup of Home Assistant (frontend, api, etc)
 default_config:
-
+  
 # Text to speech
 tts:
   - platform: google_translate
@@ -20,4 +20,8 @@ script: !include scripts.yaml
 scene: !include scenes.yaml
 
 recorder:
-  db_url: !secret recorder_db_url
+  db_url: !secret RECORDER_DB_URL
+
+duckdns:
+  domain: !secret DUCKDNS_SUBDOMAIN
+  access_token: !secret DUCKDNS_TOKEN

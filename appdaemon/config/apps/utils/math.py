@@ -1,6 +1,6 @@
 from collections import deque
 
-class MovingAverage(object):
+class MovingAverage:
     """
     Credits: https://high-python-ext-3-algorithms.readthedocs.io/ko/latest/chapter16.html#moving-average
     
@@ -15,7 +15,14 @@ class MovingAverage(object):
     def next(self, val):
         """
         :type val: int
-        :rtype: float
+        :rtype: None
         """
         self.queue.append(val)
-        return sum(self.queue) / len(self.queue)
+
+    def average(self):
+        """
+        :type val: int
+        :rtype: float
+        """
+        return round(sum(self.queue) / len(self.queue))
+         
