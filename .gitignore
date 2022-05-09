@@ -58,7 +58,7 @@ home-assistant.log*
 .storage
 .HA_VERSION
 tts/
+backups/
 
 # Certbot
 certbot/
-homeassistant/config/tts/09f9398d4d036742be7c23c706e9b34064e5f964_en_-_google_translate.mp3
