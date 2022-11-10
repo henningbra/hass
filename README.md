@@ -17,3 +17,5 @@ apt install docker-compose
     # sudo docker-compose exec appdaemon sh
     # cd /conf
     # pytest
+
+sudo apt update && sudo apt upgrade && sudo snap refresh && sudo docker-compose pull && sudo docker-compose up -d

@@ -3,7 +3,7 @@ AveragePower:
   class: AveragePowerConsumption
   sensor: sensor.power_hjemme
   ticks: 900
-  wait: 10
+  wait: 60
   input_field: input_number.moving_average
 
 # Tibber:
