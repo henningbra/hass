@@ -2,7 +2,7 @@ AveragePower:
   module: power
   class: AveragePowerConsumption
   sensor: sensor.power_hjemme
-  ticks: 900
+  ticks: 300
   wait: 60
   input_field: input_number.moving_average
 

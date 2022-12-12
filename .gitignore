@@ -54,6 +54,7 @@ coverage.xml
 # Homeassistant
 secrets.yaml
 home-assistant.log*
+homeassistant/config/custom_components/hacs/*
 .cloud
 .storage
 .HA_VERSION

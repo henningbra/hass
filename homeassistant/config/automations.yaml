@@ -1,1 +1,56 @@
-[]
+- id: '1668960691698'
+  alias: Good Morning by motion in Living room
+  description: ''
+  trigger:
+  - type: motion
+    platform: device
+    device_id: b23e57ec8071cc86efc2ea8bdab9010e
+    entity_id: binary_sensor.sensor_livingroom_motion
+    domain: binary_sensor
+  condition:
+  - condition: time
+    after: 05:00:00
+    weekday:
+    - sun
+    - mon
+    - tue
+    - wed
+    - thu
+    - fri
+    - sat
+    before: 09:00:00
+  - condition: and
+    conditions:
+    - condition: device
+      type: is_off
+      device_id: d1794bca915697a52e607f4a1c5ddcab
+      entity_id: light.living_room
+      domain: light
+  action:
+  - service: scene.turn_on
+    target:
+      entity_id: scene.living_room_glowing_grins
+    metadata: {}
+  mode: single
+- id: '1670784666164'
+  alias: 'REST: Start EXPENSIVE period'
+  description: ''
+  trigger:
+  - platform: time
+    at: 05:55:00
+  condition: []
+  action:
+  - service: rest_command.power_expensive
+    data: {}
+  mode: single
+- id: '1670785177534'
+  alias: 'REST: start CHEAP period'
+  description: ''
+  trigger:
+  - platform: time
+    at: 00:10:00
+  condition: []
+  action:
+  - service: rest_command.power_cheap
+    data: {}
+  mode: single

@@ -1,18 +1,12 @@
 
 # Configure a default setup of Home Assistant (frontend, api, etc)
 default_config:
-  
+
+my:
+
 # Text to speech
 tts:
   - platform: google_translate
-
-mqtt:
-  # certificate: "PATH_TO_CA.crt"
-  broker: localhost
-  port: 1883
-  client_id: hass
-  # username: "MQTT_USERNAME"
-  # password: !secret MQTT_PASSWORD
   
 group: !include groups.yaml
 automation: !include automations.yaml
@@ -25,3 +19,21 @@ recorder:
 duckdns:
   domain: !secret DUCKDNS_SUBDOMAIN
   access_token: !secret DUCKDNS_TOKEN
+
+rest_command:
+  power_cheap:
+    url: "https://graph.api.smartthings.com/api/token/76098993-8d59-49c9-8b99-14aea6abb767/smartapps/installations/b8e46043-e154-493f-bab8-97fa5e00776d/execute/:afcb6bf323f4e35d5ee85f1166adf318:"
+    method: POST
+    headers:
+      accept: "application/json, text/html"
+    payload: '{"level":"CHEAP", "total":"1"}'
+    content_type:  'application/json; charset=utf-8'
+    verify_ssl: true
+  power_expensive:
+    url: "https://graph.api.smartthings.com/api/token/76098993-8d59-49c9-8b99-14aea6abb767/smartapps/installations/b8e46043-e154-493f-bab8-97fa5e00776d/execute/:afcb6bf323f4e35d5ee85f1166adf318:"
+    method: POST
+    headers:
+      accept: "application/json, text/html"
+    payload: '{"level":"EXPENSIVE", "total":"7"}'
+    content_type:  'application/json; charset=utf-8'
+    verify_ssl: true
